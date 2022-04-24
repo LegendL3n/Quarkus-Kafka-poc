@@ -18,7 +18,8 @@ class ChatConsumer {
     fun consume(message: Message<ChatMessage>): CompletionStage<Void> {
         val payload = message.payload
 
-        if (payload.author == "Siddhartha") message.nack(Exception("Invalid Buddha!"))
+        if (payload.author == "Siddhartha")
+            return message.nack(Exception("Invalid Buddha!"))
 
         log.info("Got this ${message.payload}")
         return message.ack()
