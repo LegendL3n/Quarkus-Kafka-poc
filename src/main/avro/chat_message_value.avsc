@@ -1,6 +1,6 @@
 {
   "namespace": "me.l3n.kafka",
-  "name": "ChatMessage",
+  "name": "MessageValue",
   "type": "record",
   "fields": [
     {

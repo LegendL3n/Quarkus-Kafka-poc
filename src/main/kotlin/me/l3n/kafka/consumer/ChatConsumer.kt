@@ -1,8 +1,9 @@
 package me.l3n.kafka.consumer
 
-import me.l3n.kafka.ChatMessage
+import io.smallrye.reactive.messaging.kafka.KafkaRecord
+import me.l3n.kafka.MessageKey
+import me.l3n.kafka.MessageValue
 import org.eclipse.microprofile.reactive.messaging.Incoming
-import org.eclipse.microprofile.reactive.messaging.Message
 import org.jboss.logging.Logger
 import java.util.concurrent.CompletionStage
 import javax.enterprise.context.ApplicationScoped
@@ -12,16 +13,16 @@ import javax.inject.Inject
 class ChatConsumer {
 
     @Inject
-    lateinit var log: Logger
+    private lateinit var log: Logger
 
     @Incoming("messages-in")
-    fun consume(message: Message<ChatMessage>): CompletionStage<Void> {
-        val payload = message.payload
+    fun consume(record: KafkaRecord<MessageKey, MessageValue>): CompletionStage<Void> {
+        val payload = record.payload
 
         if (payload.author == "Siddhartha")
-            return message.nack(Exception("Invalid Buddha!"))
+            return record.nack(Exception("Invalid Buddha!"))
 
-        log.info("Got this ${message.payload}")
-        return message.ack()
+        log.info("Got this $payload")
+        return record.ack()
     }
 }

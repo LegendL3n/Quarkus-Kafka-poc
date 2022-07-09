@@ -1,0 +1,11 @@
+{
+  "namespace": "me.l3n.kafka",
+  "name": "MessageKey",
+  "type": "record",
+  "fields": [
+    {
+      "name": "author",
+      "type": "string"
+    }
+  ]
+}
